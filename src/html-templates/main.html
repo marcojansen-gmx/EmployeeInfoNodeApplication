@@ -21,3 +21,28 @@
     {{ code_injection }}
 </body>
 </html>
+
+
+const generateTeam() = (team) =>{
+
+    manager = team.filter(employee => employee.getRole() === "manager");
+    
+    const htmlManager = (manager) => {
+        return `<p class>${manager.name}</p><p>${manager.name}</p>`
+    }
+
+     const htmlIntern = (manager) => {
+        return `<p class="bootstrap">${manager.name}</p><p>${manager.name}</p>`
+    }
+
+
+return `doctyope`htmlManager + htmlIntern + `</body>`;
+}
+
+
+
+
+
+
+
+
