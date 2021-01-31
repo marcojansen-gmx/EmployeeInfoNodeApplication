@@ -34,15 +34,11 @@ function createManager () {
         }
         ]).then(answers => {
             console.log(answers)
-            const Manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-            teamArray.push(Manager);
+            const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+            teamArray.push(manager);
             createEmployee()
         })
-    }
-};
-
-
-createEmployee()
+}
 
 // adding staff member selection
 function createEmployee() {
@@ -56,10 +52,10 @@ function createEmployee() {
     ]).then((data) => {
         console.log(data);
         switch (data.employeeType) {
-            case 'Engineer':
+            case 'Add Engineer':
                 addEngineer();
                 break;
-            case 'Intern':
+            case 'Add Intern':
                 addIntern();
                 break;
             default:
@@ -69,33 +65,67 @@ function createEmployee() {
 }
 
 function addEngineer(){
-    console.log("addEngineer");
      inquirer.prompt([
      {
       type: "input",
       name: "name",
-      message: "Please enter your engineers name?",
+      message: "Please enter your engineer's name?",
     },
     {
         type: 'input',
-        message: 'What is your ID number?',
+        message: 'What is his/her ID number?',
         name: 'id'
     },
      {
         type: 'input',
-        message: 'What is your email address?',
+        message: 'What is his/her email address?',
         name: 'email',
+    },
+    {
+        type: 'input',
+        message: 'What is his/her Github address?',
+        name: 'github',
     }
     ]).then(answers => {
         console.log(answers)
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github  )
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
         teamArray.push(engineer);
         createEmployee()
     })
 }
 
+function addIntern(){
+    inquirer.prompt([
+    {
+     type: "input",
+     name: "name",
+     message: "Please enter your Intern's name?",
+   },
+   {
+       type: 'input',
+       message: 'What is his/her ID number?',
+       name: 'id'
+   },
+    {
+       type: 'input',
+       message: 'What is his/her email address?',
+       name: 'email',
+   },
+   {
+       type: 'input',
+       message: 'What is his/her School?',
+       name: 'school',
+   }
+   ]).then(answers => {
+       console.log(answers)
+       const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+       teamArray.push(intern);
+       createEmployee()
+   })
+}
+
 function buildEmployee() {
-    console.log("buildEmployee");
+    console.log(teamArray);
 }
 
 // fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) => {
