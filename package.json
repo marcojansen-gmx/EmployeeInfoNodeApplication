@@ -1,15 +1,25 @@
 {
-  "name": "wordguess",
+  "name": "employee_information_tool",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "start": "node index",
-    "watch": "nodemon index",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcojansen-gmx/employee_information_tool.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcojansen-gmx/employee_information_tool/issues"
+  },
+  "homepage": "https://github.com/marcojansen-gmx/employee_information_tool#readme",
   "dependencies": {
     "inquirer": "^7.3.3"
   },

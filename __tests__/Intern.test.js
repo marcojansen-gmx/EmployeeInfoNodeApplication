@@ -1,4 +1,4 @@
-const Intern = require('../lib/Employee');
+const Intern = require('../lib/Intern');
 
 test("checks if new Engineer works", () => {
 	const intern = new Intern();
@@ -38,10 +38,10 @@ test ("check getEmail func", () => {
 
 test ("check getRole func", () => {
     const intern = new Intern("Sam", "18", "sam@gmx.com","havard7");
-    expect(intern.getRole()).toBe("intern");
+    expect(intern.getRole()).toBe("Intern");
 });
 
-test ("check getGithub func", () => {
+test ("check getSchool func", () => {
     const intern = new Intern("Luca", "19", "luca@gmx.com","havard8");
-    expect(intern.getSchool()).toBe("www.havard8");
+    expect(intern.getSchool()).toBe("havard8");
 });

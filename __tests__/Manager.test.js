@@ -1,4 +1,4 @@
-const Manager = require('../lib/Employee');
+const Manager = require('../lib/Manager');
 
 test("checks if new Manager works", () => {
 	const manager = new Manager();
@@ -20,7 +20,7 @@ test ("check if correct email is stored", () => {
     expect (manager.email).toBe("jesse@gmx.com");
 });
 
-test ("check if correct school is stored", () => {
+test ("check if correct officeNumber is stored", () => {
     const manager = new Manager("Abbey", "15", "abbey@gmx.com","123456");
     expect (manager.officeNumber).toBe("123456");
 });
@@ -38,10 +38,10 @@ test ("check getEmail func", () => {
 
 test ("check getRole func", () => {
     const manager = new Manager("Sam", "18", "sam@gmx.com","123456789");
-    expect(manager.getRole()).toBe("manager");
+    expect(manager.getRole()).toBe("Manager");
 });
 
-test ("check getGithub func", () => {
+test ("check getOfficeNumber func", () => {
     const manager = new Manager("Luca", "19", "luca@gmx.com","1234567890");
-    expect(manager.getOfficeNumber()).toBe("www.1234567890");
+    expect(manager.getOfficeNumber()).toBe("1234567890");
 });
