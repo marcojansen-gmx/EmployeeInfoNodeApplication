@@ -1,4 +1,4 @@
-  
+
 function injectCode(source, placeholder, replaceValue){
     return source.replace(
         placeholder,
@@ -10,5 +10,3 @@ module.exports = {
     injectCode,
     
 }
-
-

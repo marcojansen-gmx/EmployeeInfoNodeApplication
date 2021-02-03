@@ -6,6 +6,9 @@ const path = require('path');
 const htmlHelpers = require('./src/utils/html');
 const inquirer = require('inquirer');
 const teamArray = [];
+const employee = [];
+let source;
+let cards;
 
 // initial manager input
 createManager()
@@ -50,7 +53,7 @@ function createEmployee() {
             choices: ['Add Engineer', 'Add Intern', 'Quit to result'],
         },
     ]).then((data) => {
-        console.log(data);
+        // console.log(data);
         switch (data.employeeType) {
             case 'Add Engineer':
                 addEngineer();
@@ -59,7 +62,7 @@ function createEmployee() {
                 addIntern();
                 break;
             default:
-                buildEmployee(teamArray);
+                buildSouce(teamArray);
         }
     });
 }
@@ -124,7 +127,8 @@ function addIntern() {
     })
 }
 
-    function buildEmployee(teamArray){
+    function buildEmployee(employee){
+        // console.log(employee);
         // read the templates
         const sourcePath = path.join(
             __dirname,
@@ -134,7 +138,7 @@ function addIntern() {
         );
         let source = fs.readFileSync(sourcePath, "utf-8");
    
-        const {name, id, role, ...other} = teamArray;
+        const {name, id, role, ...other} = employee;
     
         // substitude the placeholders with employees prop
         source = htmlHelpers.injectCode(source, "{{ name }}", employee.getName());
@@ -142,19 +146,28 @@ function addIntern() {
     
         source = htmlHelpers.injectCode(source, "{{ role }}", employee.getRole());
         source = htmlHelpers.injectCode(source, "{{ other }}", Object.values(other)[0]);
-    
-        // return the html
-        return source;
-    
+        console.log("too early" + source)
+        cards = source;
     }
 
-const html = cards.join('');
 
-    console.log(html);
-    const htmlPath = path.join(__dirname, "src", "html-templates", "layout.html");
-    const layout = fs.readFileSync(htmlPath, "utf-8");
-    htmlHelpers.injectCode(layout, '{{ code_injection }}', JSON.stringify(teamArray));	
-    const result =  htmlHelpers.injectCode(layout, '{{ body }}', html);
+function buildSouce(teamArray){
+
+    for (let index = 0; index < teamArray.length; index++) {
+        const employee = teamArray[index];
+        buildEmployee(employee)
+    }
+    buildHTML();
+}
     
-    const outputPath = path.join(__dirname, "output", "output.html");
-    fs.writeFileSync(outputPath, result, 'utf-8');
+
+function buildHTML(cards){
+        console.log(cards);
+    //     const htmlPath = path.join(__dirname, "src", "html-templates", "layout.html");
+    //     const layout = fs.readFileSync(htmlPath, "utf-8");
+//     htmlHelpers.injectCode(layout, '{{ code_injection }}', JSON.stringify(teamArray));	
+//     const result =  htmlHelpers.injectCode(layout, '{{ body }}', html);
+
+//     const outputPath = path.join(__dirname, "output", "output.html");
+//     fs.writeFileSync(outputPath, result, 'utf-8');
+};
