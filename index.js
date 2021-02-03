@@ -7,7 +7,6 @@ const htmlHelpers = require('./src/utils/html');
 const inquirer = require('inquirer');
 const teamArray = [];
 const employee = [];
-let source;
 let cards;
 
 // initial manager input
@@ -127,47 +126,66 @@ function addIntern() {
     })
 }
 
-    function buildEmployee(employee){
-        // console.log(employee);
-        // read the templates
-        const sourcePath = path.join(
-            __dirname,
-            "src",
-            "html-templates",
-            "main.html"
-        );
-        let source = fs.readFileSync(sourcePath, "utf-8");
-   
-        const {name, id, role, ...other} = employee;
-    
-        // substitude the placeholders with employees prop
-        source = htmlHelpers.injectCode(source, "{{ name }}", employee.getName());
-        source = htmlHelpers.injectCode(source, "{{ id }}", employee.getId());
-    
-        source = htmlHelpers.injectCode(source, "{{ role }}", employee.getRole());
-        source = htmlHelpers.injectCode(source, "{{ other }}", Object.values(other)[0]);
-        console.log("too early" + source)
-        cards = source;
-    }
+function buildEmployee(employee) {  
+let source;
+if (employee instanceof Manager)  {
+    source = `
+    <div class="card">
+    <div class="card-header">ID: ${ employee.getId() }</div>
+    <div class="card-body">
+      <h5 class="card-title">Name: ${ employee.getName() }</h5>
+      <p class="card-text">Role: ${ employee.getRole() }</p>
+      <a href="#" class="btn btn-primary">Phone: ${ employee.getOfficeNumber() }</a>
+    </div>
+  </div>`;
+} else if (employee instanceof Engineer) {
+    source = `
+    <div class="card">
+    <div class="card-header">ID: ${ employee.getId() }</div>
+    <div class="card-body">
+      <h5 class="card-title">Name: ${ employee.getName() }</h5>
+      <p class="card-text">Role: ${ employee.getRole() }</p>
+      <a href="#" class="btn btn-primary">Github: ${ employee.getGithub() }</a>
+    </div>
+  </div>`
+
+} else if (employee instanceof Intern) {
+    source =`
+    <div class="card">
+    <div class="card-header">ID: ${ employee.getId() }</div>
+    <div class="card-body">
+      <h5 class="card-title">Name: ${ employee.getName() }</h5>
+      <p class="card-text">Role: ${ employee.getRole() }</p>
+      <a href="#" class="btn btn-primary">School: ${ employee.getSchool() }</a>
+    </div>
+  </div>`
+}
+
+    return source;
+}
 
 
-function buildSouce(teamArray){
-
+function buildSouce(teamArray) {
+    let asd = "";
     for (let index = 0; index < teamArray.length; index++) {
         const employee = teamArray[index];
-        buildEmployee(employee)
+        asd += buildEmployee(employee)
     }
-    buildHTML();
+    const sourcePath = path.join(
+        __dirname,
+        "src",
+        "html-templates",
+        "layout.html"
+    );
+
+    let source = fs.readFileSync(sourcePath, "utf-8");
+
+    const finalStr = htmlHelpers.injectCode(source, "{{ body }}", asd);
+    const finalPath = path.join(
+        __dirname,
+        "src",
+        "html-templates",
+        "final.html"
+    );
+    fs.writeFileSync(finalPath, finalStr);
 }
-    
-
-function buildHTML(cards){
-        console.log(cards);
-    //     const htmlPath = path.join(__dirname, "src", "html-templates", "layout.html");
-    //     const layout = fs.readFileSync(htmlPath, "utf-8");
-//     htmlHelpers.injectCode(layout, '{{ code_injection }}', JSON.stringify(teamArray));	
-//     const result =  htmlHelpers.injectCode(layout, '{{ body }}', html);
-
-//     const outputPath = path.join(__dirname, "output", "output.html");
-//     fs.writeFileSync(outputPath, result, 'utf-8');
-};
