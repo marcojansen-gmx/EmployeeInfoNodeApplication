@@ -37,7 +37,7 @@ THEN I exit the application, and the HTML is generated
 
 The following image shows a mock-up of the generated HTML’s appearance and functionality:
 
-![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./Assets/employee_information_tool.png)
+![HTML webpage for my team](https://github.com/marcojansen-gmx/employee_information_tool/blob/main/assets/employee_information_tool.png?raw=true)
 # repository
 https://github.com/marcojansen-gmx/employee_information_tool
 # demo video
